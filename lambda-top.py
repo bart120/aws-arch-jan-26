@@ -19,7 +19,15 @@ def lambda_handler(event, context):
         }
 
     time.sleep(0.3)  # traitement simulé
-    result = json.dumps({"message": "Réponse calculée"})
+    # Simulation d'un calcul inutile
+    data = []
+    for i in range(5000):
+        data.append(i * random.random())
+    
+    result = json.dumps({
+            "message": "Réponse API",
+            "items": len(data)
+        })
 
     redis_client.setex(cache_key, 60, result)
 
